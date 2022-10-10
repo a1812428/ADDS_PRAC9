@@ -14,8 +14,9 @@ int evaluatePrefix(vector<string> prefixExpression)
     stack<int> stack;
     for (int j = prefixExpression.size() - 1; j >= 0; j--)
     {
-        if (!isOperator(prefixExpression[j]))
+        if (!isOperator(prefixExpression[j])){
             stack.push(stoi(prefixExpression[j]));
+        }
         else
         {
             int o1 = stack.top();
@@ -30,10 +31,6 @@ int evaluatePrefix(vector<string> prefixExpression)
                 stack.push(o1 * o2);
             else if (prefixExpression[j] == "/")
                 stack.push(o1 / o2);
-            else if (prefixExpression[j] == "^")
-                stack.push(o1 ^ o2);
-            else if (prefixExpression[j] == "%")
-                stack.push(o1 % o2);
         }
     }
     return stack.top();
@@ -69,16 +66,28 @@ int main()
     string word;
     int operators = 0, operands = 0;
     getline(cin, prefixExpression);
+    bool falseExpression = false;
     stringstream ss(prefixExpression);
     while (ss >> word)
     {
-        if (isOperator(word))
+        if (isOperator(word)){
             operators++;
-        else
-            operands++;
+        }
+        else{
+            if(stoi(word) >=0 && stoi(word) <=99){
+                operands++;
+            }
+            else{
+                falseExpression = true;
+                break;
+            }
+        }
         arr.push_back(word);
     }
-    if (operands - operators == 1 && ((arr.size() > 1 && !isOperator(arr[arr.size() - 1]) && !isOperator(arr[arr.size() - 2])) || (arr.size() == 1 && !isOperator(arr[0]))))
+    if(falseExpression){
+        cout << "Error";
+    }
+    else if ((operands - operators == 1) && ((arr.size() > 1 && !isOperator(arr[arr.size() - 1]) && !isOperator(arr[arr.size() - 2])) || (arr.size() == 1 && !isOperator(arr[0]))))
     {
         string ans = prefixToInfix(arr);
         if (ans[0] == '(' && ans[ans.size() - 1] == ')')
