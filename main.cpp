@@ -22,7 +22,7 @@ int evaluatePrefix(vector<string> prefixExpression)
             stack.pop();
             int o2 = stack.top();
             stack.pop();
-            if(prefixExpression[j] == "+")
+            if (prefixExpression[j] == "+")
                 stack.push(o1 + o2);
             else if (prefixExpression[j] == "-")
                 stack.push(o1 - o2);
@@ -70,25 +70,31 @@ int main()
     int operators = 0, operands = 0;
     getline(cin, prefixExpression);
     stringstream ss(prefixExpression);
-    while (ss >> word){
-        if(isOperator(word)){
+    while (ss >> word)
+    {
+        if (isOperator(word))
+        {
             operators++;
         }
-        else{
+        else
+        {
             operands++;
         }
         arr.push_back(word);
     }
-    if(operands-operators == 1){
+    if (operands - operators == 1)
+    {
         string ans = prefixToInfix(arr);
-        ans = ans.substr(1, ans.size() - 2);
+        if(ans[0] == '('){
+            ans = ans.substr(1, ans.size() - 2);
+        }
         int finalAns = evaluatePrefix(arr);
         cout << ans << " = " << finalAns;
     }
-    else{
+    else
+    {
         cout << "Error";
     }
-    
 
     return 0;
 }
