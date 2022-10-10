@@ -78,7 +78,7 @@ int main()
             operands++;
         arr.push_back(word);
     }
-    if (operands - operators == 1)
+    if (operands - operators == 1 && ((arr.size() > 1 && !isOperator(arr[arr.size() - 1]) && !isOperator(arr[arr.size() - 2])) || (arr.size() == 1 && !isOperator(arr[0]))))
     {
         string ans = prefixToInfix(arr);
         if (ans[0] == '(' && ans[ans.size() - 1] == ')')
