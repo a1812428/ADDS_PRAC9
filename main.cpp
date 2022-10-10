@@ -67,14 +67,28 @@ int main()
     vector<string> arr;
     string prefixExpression;
     string word;
+    int operators = 0, operands = 0;
     getline(cin, prefixExpression);
     stringstream ss(prefixExpression);
-    while (ss >> word)
+    while (ss >> word){
+        if(isOperator(word)){
+            operators++;
+        }
+        else{
+            operands++;
+        }
         arr.push_back(word);
-    string ans = prefixToInfix(arr);
-    ans = ans.substr(1, ans.size() - 2); 
-    int finalAns = evaluatePrefix(arr);
-    cout << ans << " = " << finalAns;
+    }
+    if(operands-operators == 1){
+        string ans = prefixToInfix(arr);
+        ans = ans.substr(1, ans.size() - 2);
+        int finalAns = evaluatePrefix(arr);
+        cout << ans << " = " << finalAns;
+    }
+    else{
+        cout << "Error";
+    }
+    
 
     return 0;
 }
