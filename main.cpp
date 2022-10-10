@@ -73,19 +73,16 @@ int main()
     while (ss >> word)
     {
         if (isOperator(word))
-        {
             operators++;
-        }
         else
-        {
             operands++;
-        }
         arr.push_back(word);
     }
     if (operands - operators == 1)
     {
         string ans = prefixToInfix(arr);
-        if(ans[0] == '('){
+        if (ans[0] == '(' && ans[ans.size() - 1] == ')')
+        {
             ans = ans.substr(1, ans.size() - 2);
         }
         int finalAns = evaluatePrefix(arr);
